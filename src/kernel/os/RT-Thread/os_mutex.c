@@ -54,7 +54,8 @@ OS_Status OS_MutexDelete(OS_Mutex_t *mutex)
 {
 	OS_HANDLE_ASSERT(OS_MutexIsValid(mutex), mutex->handle);
 
-	vSemaphoreDelete(mutex->handle);
+	// vSemaphoreDelete(mutex->handle);
+	rt_sem_delete(mutex->handle);
 	OS_MutexSetInvalid(mutex);
 	return OS_OK;
 }

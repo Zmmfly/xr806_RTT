@@ -24,8 +24,9 @@ SUBDIRS += kernel/FreeRTOS/FreeRTOS$(CONFIG_OS_FREERTOS_VERSION_STR)
 SUBDIRS += kernel/os/FreeRTOS
 else
 ifeq ($(CONFIG_OS_RTTHREAD), y)
-SUBDIRS += kernel/rt-thread
+SUBDIRS += kernel/RT-Thread
 SUBDIRS += kernel/os/RT-Thread
+endif
 endif
 
 ifeq ($(CONFIG_BIN_COMPRESS), y)

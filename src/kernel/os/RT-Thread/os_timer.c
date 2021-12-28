@@ -34,7 +34,10 @@
 
 #include "kernel/os/os_timer.h"
 #include "os_util.h"
-#include "timers.h"
+// #include "timers.h"
+#include <rtthread.h>
+
+// typedef void * TimerHandle_t;
 
 /* TODO: what block time should be used ? */
 #define OS_TIMER_WAIT_FOREVER	portMAX_DELAY
@@ -46,16 +49,16 @@
 
 /* Timer private data definition */
 typedef struct OS_TimerPriv {
-	TimerHandle_t       handle;   /* Timer handle */
+	rt_timer_t          handle;   /* Timer handle */
 	OS_TimerCallback_t  callback; /* Timer expire callback function */
 	void               *argument; /* Argument of timer expire callback function */
 } OS_TimerPriv_t;
 
-static void OS_TimerPrivCallback(TimerHandle_t xTimer)
+static void OS_TimerPrivCallback(void *arg)
 {
-	OS_TimerPriv_t *priv;
+	OS_TimerPriv_t *priv = (OS_TimerPriv_t *)arg;
 
-	priv = pvTimerGetTimerID(xTimer);
+	// priv = pvTimerGetTimerID(xTimer);
 	if (priv && priv->callback) {
 		priv->callback(priv->argument);
 	} else {
@@ -77,11 +80,6 @@ OS_Status OS_TimerCreate(OS_Timer_t *timer, OS_TimerType type,
 
 	priv->callback = cb;
 	priv->argument = arg;
-	// priv->handle = xTimerCreate("",
-	//                             OS_MSecsToTicks(periodMS),
-	//                             type == OS_TIMER_PERIODIC ? pdTRUE : pdFALSE,
-	//                             priv,
-	//                             OS_TimerPrivCallback);
 	priv->handle = rt_timer_create("NULL", 
 								    OS_TimerPrivCallback, 
 									priv, 
@@ -96,7 +94,7 @@ OS_Status OS_TimerCreate(OS_Timer_t *timer, OS_TimerType type,
 	return OS_OK;
 }
 
-static __inline TimerHandle_t OS_TimerGetKernelHandle(OS_Timer_t *timer)
+static __inline rt_timer_t OS_TimerGetKernelHandle(OS_Timer_t *timer)
 {
 	OS_TimerPriv_t *priv = timer->handle;
 	return priv->handle;
@@ -130,7 +128,7 @@ static __inline TimerHandle_t OS_TimerGetKernelHandle(OS_Timer_t *timer)
 
 OS_Status OS_TimerDelete(OS_Timer_t *timer)
 {
-	TimerHandle_t handle;
+	rt_timer_t handle;
 	rt_err_t ret;
 
 	OS_HANDLE_ASSERT(OS_TimerIsValid(timer), timer->handle);
@@ -155,7 +153,7 @@ OS_Status OS_TimerDelete(OS_Timer_t *timer)
 
 OS_Status OS_TimerStart(OS_Timer_t *timer)
 {
-	TimerHandle_t handle;
+	rt_timer_t handle;
 	rt_err_t ret;
 
 	OS_HANDLE_ASSERT(OS_TimerIsValid(timer), timer->handle);
@@ -173,7 +171,7 @@ OS_Status OS_TimerStart(OS_Timer_t *timer)
 
 OS_Status OS_TimerChangePeriod(OS_Timer_t *timer, uint32_t periodMS)
 {
-	TimerHandle_t handle;
+	rt_timer_t handle;
 	uint32_t tick = rt_tick_from_millisecond(periodMS);
 	rt_err_t ret;
 
@@ -192,7 +190,7 @@ OS_Status OS_TimerChangePeriod(OS_Timer_t *timer, uint32_t periodMS)
 
 OS_Status OS_TimerStop(OS_Timer_t *timer)
 {
-	TimerHandle_t handle;
+	rt_timer_t handle;
 	rt_err_t ret;
 	// BaseType_t ret;
 	// BaseType_t taskWoken;
@@ -212,7 +210,7 @@ OS_Status OS_TimerStop(OS_Timer_t *timer)
 
 int OS_TimerIsActive(OS_Timer_t *timer)
 {
-	TimerHandle_t handle;
+	rt_timer_t handle;
 
 	if (!OS_TimerIsValid(timer)) {
 		return 0;

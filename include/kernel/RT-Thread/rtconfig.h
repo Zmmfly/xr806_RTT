@@ -1,5 +1,5 @@
 #include <rtthread.h>
-#include "autoconf.h"
+#include "generated/autoconf.h"
 
 #ifdef CONFIG_TRUSTZONE
 #define ARM_CM33_ENABLE_TRUSTZONE

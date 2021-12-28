@@ -70,7 +70,8 @@ OS_Status OS_ThreadDelete(OS_Thread_t *thread)
 
 
 	if (thread == NULL) {
-		vTaskDelete(NULL); /* delete self */
+		// vTaskDelete(NULL); /* delete self */
+		rt_thread_delete(rt_thread_self());
 		return OS_OK;
 	}
 
@@ -97,32 +98,36 @@ OS_Status OS_ThreadDelete(OS_Thread_t *thread)
 
 void OS_ThreadSleep(OS_Time_t msec)
 {
-	vTaskDelay((TickType_t)OS_MSecsToTicks(msec));
+	// vTaskDelay((TickType_t)OS_MSecsToTicks(msec));
+	rt_thread_mdelay(msec);
 }
 
 void OS_ThreadYield(void)
 {
-	taskYIELD();
+	// taskYIELD();
+	rt_thread_yield();
 }
 
 OS_ThreadHandle_t OS_ThreadGetCurrentHandle(void)
 {
-	return (OS_ThreadHandle_t)xTaskGetCurrentTaskHandle();
+	// return (OS_ThreadHandle_t)xTaskGetCurrentTaskHandle();
+	return rt_thread_self();
 }
 
 void OS_ThreadStartScheduler(void)
 {
-	vTaskStartScheduler();
+	// vTaskStartScheduler();
 }
 
 void OS_ThreadSuspendScheduler(void)
 {
-	vTaskSuspendAll();
+	// vTaskSuspendAll();
+	while(1);
 }
 
 void OS_ThreadResumeScheduler(void)
 {
-	xTaskResumeAll();
+	// xTaskResumeAll();
 }
 
 int OS_ThreadIsSchedulerRunning(void)

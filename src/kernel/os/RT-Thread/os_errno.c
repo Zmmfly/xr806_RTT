@@ -34,7 +34,8 @@
 
 #include "kernel/os/os_errno.h"
 #include "os_util.h"
-#include "task.h"
+// #include "task.h"
+#include <rtthread.h>
 
 int OS_GetErrno(void)
 {
