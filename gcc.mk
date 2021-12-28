@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------
 # cross compiler
 # ----------------------------------------------------------------------------
-CC_DIR := ~/tools/gcc-arm-none-eabi-10-2020-q4-major/bin
+CC_DIR := ~/tools/gcc-arm-none-eabi-10.3-2021.10/bin
 CC_PREFIX := $(CC_DIR)/arm-none-eabi-
 
 AS      := $(CC_PREFIX)as
@@ -157,6 +157,12 @@ ifeq ($(CONFIG_OS_FREERTOS), y)
   INCLUDE_OS_FREERTOS_PLATFORM_PATHS := $(shell find $(INCLUDE_OS_FREERTOS_PATHS)/portable/GCC/$(CONFIG_OS_FREERTOS_PLATFORM) -type d)
   INCLUDE_PATHS += -I$(INCLUDE_OS_FREERTOS_PATHS)
   INCLUDE_PATHS += $(foreach dir, $(INCLUDE_OS_FREERTOS_PLATFORM_PATHS), -I$(dir))
+else
+  ifeq ($(CONFIG_OS_RTTHREAD), y)
+    INCLUDE_OS_RTTHREAD_PATHS := $(INCLUDE_ROOT_PATH)/kernel/RT-Thread
+    INCLUDE_OS_RTTHREAD_PATHS += $(ROOT_PATH)/src/kernel/RT-Thread/components
+    INCLUDE_PATHS += $(foreach dir, $(INCLUDE_OS_RTTHREAD_PATHS), -I$(dir))
+  endif
 endif
 
 ifeq ($(CONFIG_WLAN), y)
@@ -204,10 +210,10 @@ endif
 # ----------------------------------------------------------------------------
 # ohos include path
 # ----------------------------------------------------------------------------
-INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m
-INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m/utils
-INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m/kernel/arch/include
-INCLUDE_PATHS += -I$(ROOT_PATH)/..
+# INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m
+# INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m/utils
+# INCLUDE_PATHS += -I$(ROOT_PATH)/../../../../kernel/liteos_m/kernel/arch/include
+# INCLUDE_PATHS += -I$(ROOT_PATH)/..
 # ----------------------------------------------------------------------------
 # common makefile for library and project
 # ----------------------------------------------------------------------------
