@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------
 # common rules
 # ----------------------------------------------------------------------------
-ROOT_PATH := ../../../..
+ROOT_PATH := ../../..
 
 include $(ROOT_PATH)/gcc.mk
 
@@ -19,18 +19,18 @@ LIBS := librtthread.a
 #   RTOS_DIRS_IGNORE := $(shell find ./Source/portable/GCC/$(CONFIG_OS_FREERTOS_PLATFORM)/secure -type d)
 # endif
 # RTOS_DIRS := ./Source $(shell find ./Source/portable/GCC/$(CONFIG_OS_FREERTOS_PLATFORM) -type d)
-RTOS_DIRS := ./Source $(shell find ./libcpu/arm/cortex-m33 -type d)
+SRC_DIRS := ./src 
+SRC_DIRS += ./bsp 
+SRC_DIRS += ./components/finsh 
+SRC_DIRS += ./libcpu/arm/cortex-m33 
 
-#//TODO complete edit
+#	# $(shell find ./libcpu/arm/cortex-m33 -type d)
 
-DIRS := $(filter-out $(RTOS_DIRS_IGNORE),$(RTOS_DIRS))
+DIRS := SRC_DIRS
 
 SRCS := $(sort $(basename $(foreach dir,$(DIRS),$(wildcard $(dir)/*.[csS]))))
 
-SRCS += ./Source/portable/MemMang/heap_adapt
-else
-SRCS := $(sort $(basename Patch/tasks.c Patch/port.c))
-endif
+# INCLUDE_PATHS += $(foreach dir, $(DIRS), -I$(dir))
 
 OBJS := $(addsuffix .o,$(SRCS))
 

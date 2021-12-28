@@ -37,12 +37,12 @@ menuconfig RT_USING_USER_MAIN
         default 512
 
 config RT_DEBUG
-    bool "enable kernel debug configuration
+    bool "enable kernel debug configuration"
     default n
 
 config RT_DEBUG_INIT
     depends on RT_DEBUG
-    int "enable components initialization debug configuration
+    int "enable components initialization debug configuration"
     range 0 1
     default 0
 
@@ -65,12 +65,12 @@ menuconfig RT_USING_TIMER_SOFT
     default n
     if RT_USING_TIMER_SOFT
         config RT_TIMER_THREAD_PRIO
-            int "The priority level of timer thread
+            int "The priority level of timer thread"
             range 0 31
             default 4
 
         config RT_TIMER_THREAD_STACK_SIZE
-            int "The stack size of timer thread
+            int "The stack size of timer thread"
             range 0 8192
             default 512
     endif
