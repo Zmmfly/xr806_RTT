@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.19041.0",
+            "intelliSenseMode": "windows-gcc-arm",
+            "compilerPath": "${env:GCC_ANE_HOME}/bin/arm-none-eabi-gcc.exe"
+        }
+    ],
+    "version": 4
+}
