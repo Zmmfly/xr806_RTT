@@ -14,6 +14,16 @@
             "windowsSdkVersion": "10.0.19041.0",
             "intelliSenseMode": "windows-gcc-arm",
             "compilerPath": "${env:GCC_ANE_HOME}/bin/arm-none-eabi-gcc.exe"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "intelliSenseMode": "linux-gcc-arm"
         }
     ],
     "version": 4
