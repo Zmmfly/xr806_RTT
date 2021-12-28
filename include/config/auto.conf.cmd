@@ -7,6 +7,7 @@ deps_config := \
 	src/driver/chip/psram/Kconfig \
 	src/driver/chip/Kconfig \
 	src/driver/Kconfig \
+	src/kernel/rt-thread/Kconfig \
 	src/kernel/Kconfig \
 	src/fs/Kconfig \
 	src/ble/mesh/Kconfig \

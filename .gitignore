@@ -4,3 +4,7 @@
 *.d
 *.obj
 out
+.config.old
+include/config/auto.conf
+include/config/auto.conf.cmd
+include/generated/autoconf.h

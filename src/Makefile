@@ -22,6 +22,10 @@ SUBDIRS += debug
 ifeq ($(CONFIG_OS_FREERTOS), y)
 SUBDIRS += kernel/FreeRTOS/FreeRTOS$(CONFIG_OS_FREERTOS_VERSION_STR)
 SUBDIRS += kernel/os/FreeRTOS
+else
+ifeq ($(CONFIG_OS_RTTHREAD), y)
+SUBDIRS += kernel/rt-thread
+SUBDIRS += kernel/os/RT-Thread
 endif
 
 ifeq ($(CONFIG_BIN_COMPRESS), y)

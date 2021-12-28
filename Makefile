@@ -122,7 +122,6 @@ $(CONF):
 
 menuconfig: $(MCONF)
 	$< $(Kconfig)
-	python config.py
 
 defconfig: $(CONF)
 	@if [ -d project/$(PRJ) ] && [ -f project/$(PRJ)/gcc/defconfig ]; then \

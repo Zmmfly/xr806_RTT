@@ -1,0 +1,151 @@
+#
+# RT-Thread options
+#
+
+if OS_RTTHREAD
+menu "RT-Thread options"
+
+config RT_THREAD_PRIORITY_MAX
+    int "Maximal level of thread priority"
+    range 8 256
+    default 8
+
+config RT_TICK_PER_SECOND
+    int "OS tick per second"
+    default 1000
+
+config RT_ALIGN_SIZE
+    int "Alignment size for CPU architecture data access"
+    default 4
+
+config RT_NAME_MAX
+    int "the max length of object name"
+    default 8
+
+config RT_USING_COMPONENTS_INIT
+    bool "Using RT-Thread components initialization"
+    default y
+
+menuconfig RT_USING_USER_MAIN
+    bool "Using user main"
+    default y
+
+    config RT_MAIN_THREAD_STACK_SIZE
+        depends on RT_USING_USER_MAIN
+        int "the stack size of main thread"
+        range 1 4086
+        default 512
+
+config RT_DEBUG
+    bool "enable kernel debug configuration
+    default n
+
+config RT_DEBUG_INIT
+    depends on RT_DEBUG
+    int "enable components initialization debug configuration
+    range 0 1
+    default 0
+
+config RT_USING_OVERFLOW_CHECK
+    depends on RT_DEBUG
+    bool "enable thread stack over flow detect"
+    default y
+
+config RT_USING_HOOK
+    bool "using hook"
+    default n
+
+config RT_USING_IDLE_HOOK
+    depends on RT_USING_HOOK
+    bool "using idle hook"
+    default n
+
+menuconfig RT_USING_TIMER_SOFT
+    bool "Software timers"
+    default n
+    if RT_USING_TIMER_SOFT
+        config RT_TIMER_THREAD_PRIO
+            int "The priority level of timer thread
+            range 0 31
+            default 4
+
+        config RT_TIMER_THREAD_STACK_SIZE
+            int "The stack size of timer thread
+            range 0 8192
+            default 512
+    endif
+
+menu "IPC options"
+    config RT_USING_SEMAPHORE
+        bool "Using Semaphore"
+        default y
+
+    config RT_USING_MUTEX
+        bool "Using Mutex"
+        default n
+
+    config RT_USING_EVENT
+        bool "Using Event"
+        default n
+
+    config RT_USING_MAILBOX
+        bool "Using MailBox"
+        default n
+
+    config RT_USING_MESSAGEQUEUE
+        bool "Using Message Queue"
+        default n
+endmenu
+
+choice
+    prompt "Memory Management Configuration"
+    default RT_USING_HEAP
+
+    config RT_USING_HEAP
+        bool "dynamic Heap Management"
+
+    config RT_USING_SMALL_MEM
+        bool "using small memory"
+
+    config RT_USING_TINY_SIZE
+        bool "using tiny size memory"
+endchoice
+
+menu "Console options"
+    config RT_USING_CONSOLE
+        bool "Using concole"
+        default y
+
+    config RT_CONSOLEBUF_SIZE
+        depends on RT_USING_CONSOLE
+        int "the buffer size of console"
+        range 1 1024
+        default 128
+
+    menuconfig RT_USING_FINSH
+        bool "Using finsh"
+        default n
+        if RT_USING_FINSH
+            config FINSH_THREAD_PRIORITY
+                int "the priority of finsh thread"
+                range 1 7
+                default 6
+
+            config FINSH_THREAD_STACK_SIZE
+                int "the stack of finsh thread"
+                range 1 4096
+                default 512
+
+            config FINSH_HISTORY_LINES
+                int "the history lines of finsh thread"
+                range 1 32
+                default 5
+
+            config FINSH_USING_SYMTAB
+                bool "Using Tab key to complete line"
+                default y
+        endif
+endmenu
+
+endmenu
+endif
