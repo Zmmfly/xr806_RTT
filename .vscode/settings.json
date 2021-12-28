@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "stdint.h": "c",
-        "cstddef": "cpp"
+        "cstddef": "cpp",
+        "rom_freertos.h": "c"
     }
 }
