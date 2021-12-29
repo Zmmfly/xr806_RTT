@@ -96,6 +96,11 @@ OS_Status OS_ThreadDelete(OS_Thread_t *thread)
 	return OS_OK;
 }
 
+void vTaskDelay(uint32_t ticks)
+{
+	rt_thread_delay(ticks);
+}
+
 void OS_ThreadSleep(OS_Time_t msec)
 {
 	// vTaskDelay((TickType_t)OS_MSecsToTicks(msec));
@@ -119,11 +124,17 @@ void OS_ThreadStartScheduler(void)
 	// vTaskStartScheduler();
 }
 
+void vTaskSuspendAll()
+{}
+
 void OS_ThreadSuspendScheduler(void)
 {
 	// vTaskSuspendAll();
 	while(1);
 }
+
+void xTaskResumeAll()
+{}
 
 void OS_ThreadResumeScheduler(void)
 {

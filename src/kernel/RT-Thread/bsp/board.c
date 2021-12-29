@@ -46,15 +46,19 @@ static uint32_t _SysTick_Config(rt_uint32_t ticks)
 
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
 #define RT_HEAP_SIZE 1024
-static uint32_t rt_heap[RT_HEAP_SIZE];     // heap default size: 4K(1024 * 4)
+// static uint32_t rt_heap[RT_HEAP_SIZE];     // heap default size: 4K(1024 * 4)
+extern uint8_t __heap_start__[];
+extern uint8_t __heap_end__[];
 RT_WEAK void *rt_heap_begin_get(void)
 {
-    return rt_heap;
+    // return rt_heap;
+    return __heap_start__;
 }
 
 RT_WEAK void *rt_heap_end_get(void)
 {
-    return rt_heap + RT_HEAP_SIZE;
+    // return rt_heap + RT_HEAP_SIZE;
+    return __heap_end__;
 }
 #endif
 
@@ -88,4 +92,9 @@ void SysTick_Handler(void)
 
     /* leave interrupt */
     rt_interrupt_leave();
+}
+
+void OsTickHandler()
+{
+    SysTick_Handler();
 }

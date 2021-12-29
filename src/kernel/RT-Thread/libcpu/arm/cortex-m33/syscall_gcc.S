@@ -8,7 +8,7 @@
  * 2019-10-25     tyx          first version
  */
 
-.cpu cortex-m4
+.cpu cortex-m33
 .syntax unified
 .thumb
 .text

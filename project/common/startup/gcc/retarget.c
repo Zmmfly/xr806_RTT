@@ -35,9 +35,9 @@
 #include "driver/chip/hal_global.h"
 #include "common/board/board.h"
 #include "sys/sram_heap.h"
-#include "target_config.h"
-#include "kernel/os/os_thread.h"
-#include "kernel/include/los_task.h"
+// #include "target_config.h"
+// #include "kernel/os/os_thread.h"
+// #include "kernel/include/los_task.h"
 
 extern int stdout_init(void);
 extern void main_task_start(void);
@@ -64,7 +64,6 @@ int __wrap_main(void)
 	};
 
 	SystemCoreClockUpdate();
-	LOS_KernelInit();
 	timeofday_restore();
 	HAL_GlobalInit();
 	HAL_GPIO_GlobalInit(&gpio_param);

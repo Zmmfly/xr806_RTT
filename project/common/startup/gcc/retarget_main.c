@@ -29,7 +29,7 @@
 
 #include <stdio.h>
 #include "kernel/os/os_thread.h"
-#include "kernel/include/los_task.h"
+// #include "kernel/include/los_task.h"
 #include "driver/chip/system_chip.h"
 #include "common/framework/platform_init.h"
 #ifdef CONFIG_TRUSTZONE
@@ -40,7 +40,7 @@
 #endif
 
 extern int console_write(uint8_t *buf, int32_t len);
-extern void OHOS_SystemInit(void);
+// extern void OHOS_SystemInit(void);
 static OS_Thread_t g_main_thread;
 
 static void main_task(void *arg)
@@ -57,13 +57,13 @@ static void main_task(void *arg)
 #if (!defined CONFIG_BOOTLOADER) && (!defined CONFIG_ETF)
 	printf("\
 ====================================================================\n\
-	Hello! OpenHarmony!\n\
-	System tag : OpenHarmony 1.1.2_LTS\n\
+	Hello! RT-Thread!\n\
+	System tag : RT-Thread_nano_3.1.5\n\
 ====================================================================\n\
 	\n");
 	platform_init();
 
-	OHOS_SystemInit();
+	// OHOS_SystemInit();
 	//printf("$>Welcome to Wlan Bluetooth Console Tools ......\n");
 	//console_write((uint8_t *)"$>", 2);
 #else

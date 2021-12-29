@@ -146,6 +146,8 @@ LD_FLAGS += -Wl,--wrap,memmove
 # standard libraries
 LD_SYS_LIBS := -lstdc++ -lsupc++ -lm -lc -lgcc
 
+ASFLAGS := -Wa,-mimplicit-it=thumb
+
 # include path
 INCLUDE_ROOT_PATH := $(ROOT_PATH)/include
 INCLUDE_PATHS = -I$(INCLUDE_ROOT_PATH)
@@ -161,6 +163,7 @@ else
   ifeq ($(CONFIG_OS_RTTHREAD), y)
     INCLUDE_OS_RTTHREAD_PATHS := $(INCLUDE_ROOT_PATH)/kernel/RT-Thread
     INCLUDE_OS_RTTHREAD_PATHS += $(ROOT_PATH)/src/kernel/RT-Thread/components
+    INCLUDE_OS_RTTHREAD_PATHS += $(ROOT_PATH)/src/kernel/RT-Thread/components/finsh
     INCLUDE_PATHS += $(foreach dir, $(INCLUDE_OS_RTTHREAD_PATHS), -I$(dir))
   endif
 endif
@@ -224,13 +227,13 @@ PRJ_MAKE_RULES := $(ROOT_PATH)/project/project.mk
 # common rules of compiling objects
 # ----------------------------------------------------------------------------
 %.o: %.asm
-	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) -c -x assembler-with-cpp -o $@ $<
+	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) $(ASFLAGS) -c -x assembler-with-cpp -o $@ $<
 
 %.o: %.s
-	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) -c -x assembler-with-cpp -o $@ $<
+	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) $(ASFLAGS) -c -x assembler-with-cpp -o $@ $<
 
 %.o: %.S
-	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) -c -x assembler-with-cpp -o $@ $<
+	$(Q)$(CC) $(CPU) $(AS_SYMBOLS) $(ASFLAGS) -c -x assembler-with-cpp -o $@ $<
 
 %.o: %.c
 	$(Q)$(CC) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99 $(INCLUDE_PATHS) -o $@ $<

@@ -44,6 +44,6 @@ int OS_GetErrno(void)
 
 void OS_SetErrno(int err)
 {
-	rt_set_errno(err);
+	rt_set_errno((rt_err_t)err);
 }
 

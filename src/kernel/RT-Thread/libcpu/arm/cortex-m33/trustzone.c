@@ -101,7 +101,7 @@ void rt_trustzone_context_load(rt_ubase_t context)
 
 int rt_secure_svc_handle(int svc_id, rt_ubase_t arg0, rt_ubase_t arg1, rt_ubase_t arg2)
 {
-    rt_ubase_t tmp;
+    // rt_ubase_t tmp;
     int res = 0;
 
     switch (svc_id)

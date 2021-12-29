@@ -17,7 +17,7 @@
  */
 /*@{*/
 
-.cpu cortex-m4
+.cpu cortex-m33
 .syntax unified
 .thumb
 .text
@@ -83,9 +83,9 @@ _reswitch:
  * r1 --> switch to thread stack
  * psr, pc, lr, r12, r3, r2, r1, r0 are pushed into [from] stack
  */
-.global PendSV_Handler
-.type PendSV_Handler, %function
-PendSV_Handler:
+.global HalPendSV
+.type HalPendSV, %function
+HalPendSV:
     /* disable interrupt to protect context switch */
     MRS r2, PRIMASK
     CPSID   I

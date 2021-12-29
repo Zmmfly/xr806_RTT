@@ -570,8 +570,37 @@ SECTIONS
 
         KEEP(*(.eh_frame*))
 
+        . = ALIGN(4);
+        *(.glue_7)
+        *(.glue_7t)
+        *(.gnu.linkonce.t*)
+
+        /* section information for finsh shell */
+        . = ALIGN(4);
+        __fsymtab_start = .;
+        KEEP(*(FSymTab))
+        __fsymtab_end = .;
+
+        . = ALIGN(4);
+        __vsymtab_start = .;
+        KEEP(*(VSymTab))
+        __vsymtab_end = .;
+
+        /* section information for initial. */
+        . = ALIGN(4);
+        __rt_init_start = .;
+        KEEP(*(SORT(.rti_fn*)))
+        __rt_init_end = .;
+
+        . = ALIGN(4);
+
+        PROVIDE(__ctors_start__ = .);
+        KEEP (*(SORT(.init_array.*)))
+        KEEP (*(.init_array))
+        PROVIDE(__ctors_end__ = .);
+
         /* OHOS zInit (for Harmony) */
-        __zinitcall_bsp_start = .;
+/*         __zinitcall_bsp_start = .;
         KEEP (*(.zinitcall.bsp0.init))
         KEEP (*(.zinitcall.bsp1.init))
         KEEP (*(.zinitcall.bsp2.init))
@@ -640,7 +669,7 @@ SECTIONS
         KEEP (*(.zinitcall.exit2.init))
         KEEP (*(.zinitcall.exit3.init))
         KEEP (*(.zinitcall.exit4.init))
-        __zinitcall_exit_end = .;
+        __zinitcall_exit_end = .; */
 
         . = ALIGN(4);
         __text_end__ = .;

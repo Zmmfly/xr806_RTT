@@ -31,12 +31,31 @@
 #include "common/board/board.h"
 #include "pm/pm.h"
 #include "driver/chip/hal_util.h"
+#ifdef CONFIG_OS_RTTHREAD
+#include <rtthread.h>
+#endif
 
 /*
  * retarget for standard output/error
  */
 
 #if PRJCONF_UART_EN
+
+#ifdef CONFIG_OS_RTTHREAD
+
+char rt_hw_console_getchar(void)
+{
+	int ch = -1;
+	if (!HAL_UART_IsRxReady(BOARD_MAIN_UART_ID))
+	{
+		rt_thread_yield();
+	}
+	ch = HAL_UART_GetRxData(BOARD_MAIN_UART_ID);
+	return ch;
+}
+
+#endif
+
 
 #define STDOUT_WAIT_UART_TX_DONE 1
 

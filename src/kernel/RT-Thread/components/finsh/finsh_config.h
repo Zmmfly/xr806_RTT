@@ -3,6 +3,8 @@
 #ifndef __MSH_CFG_H__
 #define __MSH_CFG_H__
 
+#if 0
+#ifndef RT_USING_FINSH
 // <<< Use Configuration Wizard in Context Menu >>>
 #define RT_USING_FINSH
 #define FINSH_USING_MSH
@@ -23,6 +25,8 @@
 #define FINSH_USING_DESCRIPTION
 //  </c>
 // </h>
+#endif /* RT_USING_FINSH */
+#endif
 
 // <<< end of configuration section >>>
 #endif

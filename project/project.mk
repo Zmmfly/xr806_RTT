@@ -1,7 +1,7 @@
 #
 # Rules for building project
 #
-include $(ROOT_PATH)/ohos.mk
+# include $(ROOT_PATH)/ohos.mk
 # ----------------------------------------------------------------------------
 # Environment variables.
 # ----------------------------------------------------------------------------
@@ -131,10 +131,15 @@ ifeq ($(CONFIG_SECURE_BOOT)_$(CONFIG_CHIP_ARCH_VER), y_2)
 LIBRARIES += -lsecureboot
 endif
 
-LIBRARIES += -limage #-los
+# LIBRARIES += -limage #-los
+LIBRARIES += -limage -los
 
 ifeq ($(CONFIG_OS_FREERTOS), y)
   LIBRARIES += -lfreertos
+else
+ifeq ($(CONFIG_OS_RTTHREAD), y)
+  LIBRARIES += -lrtthread
+endif
 endif
 
 LIBRARIES += -ldebug
@@ -156,7 +161,7 @@ LIBRARIES += -lxrc $(LD_SYS_LIBS) -lxrc
 # ----------------------------------------------------------------------------
 # ohos library
 # ----------------------------------------------------------------------------
-LIBRARIES += $(OHOSSOURCE)
+# LIBRARIES += $(OHOSSOURCE)
 
 ifeq ($(CONFIG_BLE), y)
 LIBRARIES += -lbt_driver

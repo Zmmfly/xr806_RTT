@@ -1,5 +1,5 @@
 /* RT-Thread config file */
-
+#if 0
 #ifndef __RTTHREAD_CFG_H__
 #define __RTTHREAD_CFG_H__
 
@@ -136,4 +136,5 @@
 
 // <<< end of configuration section >>>
 
+#endif
 #endif
