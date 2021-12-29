@@ -1,3 +1,6 @@
+# Risk statement 
+**There is no serial port output after burning, which may cause damage to the bootloader.**
+
 # XR806 SDK
 
 XR806 SDK supports XR806 series wireless MCUs.
