@@ -125,20 +125,26 @@ void OS_ThreadStartScheduler(void)
 }
 
 void vTaskSuspendAll()
-{}
+{
+	rt_enter_critical();
+}
 
 void OS_ThreadSuspendScheduler(void)
 {
 	// vTaskSuspendAll();
-	while(1);
+	rt_thread_suspend(rt_thread_self());
+	// while(1);
 }
 
 void xTaskResumeAll()
-{}
+{
+	rt_exit_critical();
+}
 
 void OS_ThreadResumeScheduler(void)
 {
 	// xTaskResumeAll();
+	rt_exit_critical();
 }
 
 int OS_ThreadIsSchedulerRunning(void)
