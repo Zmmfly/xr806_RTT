@@ -32,7 +32,7 @@ config OS_FREERTOS
 	help
 		FreeRTOS used.
 
-source "src/kernel/rt-thread/Kconfig"
+source "src/kernel/RT-Thread/Kconfig"
 
 if OS_FREERTOS
 
